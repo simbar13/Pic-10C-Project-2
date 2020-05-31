@@ -24,6 +24,12 @@ class grade_calculator : public QMainWindow
 
     public slots:
         void update_overall(int);
+        
+    private slots:
+        void chose_pic();
+        void chose_math();
+        void chose_poli();
+        void chose_span();
 
     private:
         Ui::grade_calculator *ui;
