@@ -1,9 +1,9 @@
-#include "grade_calculator.h"
-#include "ui_grade_calculator.h"
+#include "grader.h"
+#include "ui_grader.h"
 using namespace std;
-grade_calculator::grade_calculator(QWidget *parent) :
+grader::grader(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::grade_calculator)
+    ui(new Ui::grader)
 {
     gpc =false;
     gm4=false;
@@ -44,32 +44,32 @@ grade_calculator::grade_calculator(QWidget *parent) :
 
 }
 
-grade_calculator::~grade_calculator()
+grader::~grader()
 {
     delete ui;
 }
 
-void grade_calculator::chose_pic()
+void grader::chose_pic()
 {
     gpc=true;
 }
 
-void grade_calculator::chose_math()
+void grader::chose_math()
 {
     gm4=true;
 }
 
-void grade_calculator::chose_poli()
+void grader::chose_poli()
 {
     gp10=true;
 }
 
-void grade_calculator::chose_span()
+void grader::chose_span()
 {
     gs2=true;
 }
 
-double grade_calculator::PIC10C()
+double grader::PIC10C()
 {
     double hw_grade=((ui->Assignment1->text()).toDouble()+(ui->Assignment2->text()).toDouble()+(ui->Assignment3->text()).toDouble())/3;
     double midterm_grade=(ui->Exam1->text()).toDouble();
@@ -81,7 +81,7 @@ double grade_calculator::PIC10C()
     return (g1>g2?g1:g2);
 }
 
-double grade_calculator::MATH164()
+double grader::MATH164()
 {
     double hw_grade=((ui->Assignment1->text()).toDouble()+(ui->Assignment2->text()).toDouble()+(ui->Assignment3->text()).toDouble()+(ui->Assignment4->text()).toDouble()+(ui->Assignment5->text()).toDouble())/5;
     double midterm_grade=((ui->Exam1->text()).toDouble()+(ui->Exam2->text()).toDouble())/2;
@@ -90,7 +90,7 @@ double grade_calculator::MATH164()
     return g1;
 }
 
-double grade_calculator::POLISCI10()
+double grader::POLISCI10()
 {
     double hw_grade=((ui->Assignment1->text()).toDouble()+(ui->Assignment2->text()).toDouble())/2;
     double midterm_grade=(ui->Exam1->text()).toDouble();
@@ -99,7 +99,7 @@ double grade_calculator::POLISCI10()
     return g1;
 }
 
-double grade_calculator::SPAN2()
+double grader::SPAN2()
 {
     double hw_grade=(ui->Assignment1->text()).toDouble()
     double midterm_grade=((ui->Exam1->text()).toDouble()+(ui->Exam2->text()).toDouble())/2;
@@ -109,9 +109,9 @@ double grade_calculator::SPAN2()
     return g1;
 }
 
-void grade_calculator::enter()(int unused){
+void grader::enter()(int unused){
 double final_grade;
-    if(gpc) 
+    if(gpc)
         final_grade = PIC10C();
     if(gm4)
         final_grade=MATH164();
@@ -120,7 +120,6 @@ double final_grade;
     if(gs2)
         final_grade=SPAN2();
     ui->lineEdit->setText(QString::number(final_grade)+"% is your final grade in the class.");
-    
-//you are here big fella.
+
 
 }
