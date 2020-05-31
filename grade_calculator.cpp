@@ -1,6 +1,6 @@
 #include "grade_calculator.h"
 #include "ui_grade_calculator.h"
-
+using namespace std;
 grade_calculator::grade_calculator(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::grade_calculator)
@@ -9,24 +9,24 @@ grade_calculator::grade_calculator(QWidget *parent) :
     gm4=false;
     gp10 = false;
     gs2=false;
-    
+
     ui->setupUi(this);
-    ui->setupUi(this);
+
     QObject::connect(ui->spinBox,SIGNAL(valueChanged(int)),
                      this,SLOT(update_overall(int)));
-        
-        QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(enter()));
-    
+
+    QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(enter()));
+
         QObject::connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(reset()))
         QObject::connect(ui->radioButton, SIGNAL(clicked()), this, SLOT(chose_pic()));
-    
+
         QObject::connect(ui->radioButton_2, SIGNAL(clicked()), this, SLOT(chose_math()));
-    
+
         QObject::connect(ui->radioButton_3, SIGNAL(clicked()), this, SLOT(chose_poli()));
-    
+
         QObject::connect(ui->radioButton_4, SIGNAL(clicked()), this, SLOT(chose_span()));
-    
-        
+
+
         ui->Assignment1->setMaximum(100);
         ui->Assignment2->setMaximum(100);
         ui->Assignment3->setMaximum(100);
@@ -38,6 +38,10 @@ grade_calculator::grade_calculator(QWidget *parent) :
         ui->FinalExam->setMaximum(100);
         ui->Participation->setMaximum(100);
         ui->FinalProject->setMaximum(100);
+
+
+
+
 }
 
 grade_calculator::~grade_calculator()
@@ -73,7 +77,7 @@ double grade_calculator::PIC10C()
     double final_project_grade=(ui->FinalProject->text()).toDouble();
     double g1 = .15*hw_grade+.25*midterm_grade+.3*final_grade+.35*final_project_grade;
     double g2 = .15*hw_grade+.5*final_grade+.35*final_project_grade;
-    
+
     return (g1>g2?g1:g2);
 }
 
@@ -86,11 +90,37 @@ double grade_calculator::MATH164()
     return g1;
 }
 
-void grade_calculator::update_overall(int unused){
-    // double score = 31.4;
-    double score = static_cast<double>(unused);
+double grade_calculator::POLISCI10()
+{
+    double hw_grade=((ui->Assignment1->text()).toDouble()+(ui->Assignment2->text()).toDouble())/2;
+    double midterm_grade=(ui->Exam1->text()).toDouble();
+    double final_grade=(ui->FinalExam->text()).toDouble();
+    double g1 = .2*hw_grade+.4*midterm_grade+.4*final_grade;
+    return g1;
+}
 
-    ui->label_14->setText(QString::number(score));
+double grade_calculator::SPAN2()
+{
+    double hw_grade=(ui->Assignment1->text()).toDouble()
+    double midterm_grade=((ui->Exam1->text()).toDouble()+(ui->Exam2->text()).toDouble())/2;
+    double final_grade=(ui->FinalExam->text()).toDouble();
+    double participation_grade=(ui->Participation->text()).toDouble();
+    double g1 = .2*hw_grade+.3*midterm_grade+.3*final_grade+.2*participation_grade;
+    return g1;
+}
 
-    return;
+void grade_calculator::enter()(int unused){
+double final_grade;
+    if(gpc) 
+        final_grade = PIC10C();
+    if(gm4)
+        final_grade=MATH164();
+    if(gp10)
+        final_grade=POLISCI10();
+    if(gs2)
+        final_grade=SPAN2();
+    ui->lineEdit->setText(QString::number(final_grade)+"% is your final grade in the class.");
+    
+//you are here big fella.
+
 }
