@@ -30,6 +30,8 @@ class grade_calculator : public QMainWindow
         void chose_math();
         void chose_poli();
         void chose_span();
+        void reset();
+        void enter();
 
     private:
         Ui::grade_calculator *ui;
