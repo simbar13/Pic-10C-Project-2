@@ -14,6 +14,10 @@ class grade_calculator : public QMainWindow
     public:
         explicit grade_calculator(QWidget *parent = 0);
         ~grade_calculator();
+        double PIC10C();
+        double MATH164();
+        double POLISCI10();
+        double SPAN2();
 
     signals:
         void compute_overall();
@@ -23,6 +27,10 @@ class grade_calculator : public QMainWindow
 
     private:
         Ui::grade_calculator *ui;
+        bool gpc;
+        bool gm4;
+        bool gp10;
+        bool gs2;
 };
 
 #endif // GRADE_CALCULATOR_H
